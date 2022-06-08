@@ -9,7 +9,7 @@ export class HistoryLogController {
     try {
       let page: any = req.query.page || "1"
       let limit: any = req.query.limit || "5000"
-      let users = await historyLogsService.getHistoryLogs(page, limit)
+      let users = await historyLogsService.getHistoryLogs(page, limit,req.body.user_id)
       return res.status(200).send(formatResponse(true, "", users))
     } catch (e: any) {
       return res

@@ -11,9 +11,10 @@ const bookingDateService = new BookingDateService()
 const historyLogsService = new HistoryLogsService()
 
 export class BookingService {
-  async getBookings(page: string, limit: string) {
+  async getBookings(page: string, limit: string,user_id: string) {
     let bookings = await Booking.paginate(
-      {status:EStatus.ACTIVE},
+      {created_by:user_id, 
+        status:EStatus.ACTIVE},
       getPaginationProps(parseInt(page), parseInt(limit), "booking_date")
     )
     return bookings

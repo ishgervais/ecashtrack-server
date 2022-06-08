@@ -10,7 +10,7 @@ export class ExpenseCategoryController {
     try {
       let page: any = req.query.page || "1";
       let limit: any = req.query.limit || "100";
-      let categories = await expenseCategoryService.getExpenseCategories(page, limit);
+      let categories = await expenseCategoryService.getExpenseCategories(page, limit,req.body.user_id  );
       return res.status(200).send(formatResponse(true, "", categories));
     } catch (e: any) {
       return res

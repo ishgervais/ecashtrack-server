@@ -9,9 +9,13 @@ import { HistoryLogsService } from "./history.service";
 const historyLogsService = new HistoryLogsService()
 
 export class ExpenseService {
-  async getAll(page: string, limit: string) {
+  async getAll(page: string, limit: string, user_id:string) {
+    const filter = {
+      created_by:user_id,
+        status:EStatus.ACTIVE
+    }
     let expenses = await Expense.paginate(
-      {status:EStatus.ACTIVE},
+      filter,
       getPaginationProps(parseInt(page), parseInt(limit),['created_by','budget','category'])
     )
     return expenses;
@@ -135,9 +139,9 @@ async loadBudgetAmount(expense_amount:string, budget_id:string){
 
 // statistics
 
-async getExpensesByYear(year: number) {
+async getExpensesByYear(user_id:string, year: number) {
   try {
-    let expenses = await Expense.find({ year, status:EStatus.ACTIVE})
+    let expenses = await Expense.find({ created_by:user_id,year, status:EStatus.ACTIVE})
     if (!expenses) {
       throw new ApiError(false, 404, "Expenses not found")
     }
@@ -148,9 +152,9 @@ async getExpensesByYear(year: number) {
 }
 // get expense by year and category name
 
-async getExpenseByYearAndCategory(cat_id: string, year:number){
+async getExpenseByYearAndCategory(user_id:string,cat_id: string, year:number){
   try {
-    let expenses = await Expense.find({ year, category:cat_id, status:EStatus.ACTIVE })
+    let expenses = await Expense.find({created_by:user_id, year, category:cat_id, status:EStatus.ACTIVE })
     if (!expenses) {
       throw new ApiError(false, 404, "Expenses not found")
     }

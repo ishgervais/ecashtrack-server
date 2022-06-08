@@ -3,10 +3,13 @@ import { ApiError } from "../util/ApiError"
 import { getPaginationProps } from "../util/getPagination"
 import { THistoryLog } from "../util/types"
 export class HistoryLogsService {
-  async getHistoryLogs(page: string, limit: string) {
+  async getHistoryLogs(page: string, limit: string, user_id: string) {
     try{
+      const filter = {
+        created_by:user_id
+      }
       let logs = await HistoryLog.paginate(
-        {},
+        filter,
         getPaginationProps(parseInt(page), parseInt(limit), "created_by")
       )
       return logs

@@ -10,7 +10,7 @@ export class BudgetController {
     try {
       let page: any = req.query.page || "1";
       let limit: any = req.query.limit || "100";
-      let users = await budgetService.getBudgets(page, limit);
+      let users = await budgetService.getBudgets(page, limit, req.body.user_id);
       return res.status(200).send(formatResponse(true, "", users));
     } catch (e: any) {
       return res

@@ -4,9 +4,9 @@ import { getPaginationProps } from "../util/getPagination";
 import { TBudget } from "../util/types";
 import { EStatus } from "../util/types/enums";
 export class BudgetService {
-  async getBudgets(page: string, limit: string) {
+  async getBudgets(page: string, limit: string, user_id:string) {
     let budgets = await Budget.paginate(
-      {},
+      {created_by:user_id},
       getPaginationProps(parseInt(page), parseInt(limit),'')
     );
     return budgets;

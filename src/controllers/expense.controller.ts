@@ -10,7 +10,7 @@ export class ExpenseController {
     try {
       let page: any = req.query.page || "1"
       let limit: any = req.query.limit || "100"
-      let users = await expenseService.getAll(page, limit)
+      let users = await expenseService.getAll(page, limit, req.body.user_id)
       return res.status(200).send(formatResponse(true, "", users))
     } catch (e: any) {
       return res
@@ -156,7 +156,7 @@ export class ExpenseController {
   async getByYear(req: Request, res: Response) {
     try {
       let year: number = parseInt(req.params.year)
-      let bookings: TExpense = await expenseService.getExpensesByYear(year)
+      let bookings: TExpense = await expenseService.getExpensesByYear(req.body.user_id,year)
       return res.status(200).send(formatResponse(true, "Data found", bookings))
     } catch (e: any) {
       return res
@@ -169,7 +169,7 @@ export class ExpenseController {
     try {
       let year: number = parseInt(req.params.year)
       let cat_id: string = req.query.category as string
-      let bookings: TExpense = await expenseService.getExpenseByYearAndCategory(cat_id,year)
+      let bookings: TExpense = await expenseService.getExpenseByYearAndCategory(req.body.user_id,cat_id,year)
       return res.status(200).send(formatResponse(true, "Data found", bookings))
     } catch (e: any) {
       return res

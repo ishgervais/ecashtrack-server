@@ -3,11 +3,11 @@ import { Expense } from "../models/expense.model"
 import { ApiError } from "../util/ApiError"
 import { EStatus } from "../util/types/enums"
 export class TotalCountsService {
-  async getTotalCountsForTheCurrentYear() {
+  async getTotalCountsForTheCurrentYear(user_id:string) {
     try {
       // for expenses
       let year = new Date().getFullYear()
-      let expenses = await Expense.find({ year: year, status:EStatus.ACTIVE })
+      let expenses = await Expense.find({ created_by:user_id, year: year, status:EStatus.ACTIVE })
       let totalAmountOnExpenses = 0
       let totalExpenses = 0
       for (let expense of expenses) {

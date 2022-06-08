@@ -8,9 +8,13 @@ import { HistoryLogsService } from "./history.service";
 const historyLogsService = new HistoryLogsService()
 
 export class ExpenseCategoryService {
-  async getExpenseCategories(page: string, limit: string) {
+  async getExpenseCategories(page: string, limit: string, user_id: string) {
+    const filter = {
+      created_by:user_id,
+        status:EStatus.ACTIVE
+    }
     let categories = await ExpenseCategory.paginate(
-      {status:EStatus.ACTIVE},
+      filter,
       getPaginationProps(parseInt(page), parseInt(limit))
     );
     return categories;
