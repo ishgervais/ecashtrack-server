@@ -1,4 +1,5 @@
 import { Booking } from "../models/Booking.model"
+import { Debt } from "../models/Debt.model"
 import { Expense } from "../models/expense.model"
 import { ApiError } from "../util/ApiError"
 import { EStatus } from "../util/types/enums"
@@ -25,12 +26,35 @@ export class TotalCountsService {
         totalBookingsAmount += book.payment
         totalEstimatedBoookingAmount += book.estimated_payment
       }
+
+
+
+      // debts counter
+
+        // for bookings count
+        let debts = await Debt.find({ year: year, status:EStatus.ACTIVE  })
+        let totalDebts = 0
+        let totalDebtsAmount = 0
+        let totalEstimatedDebtAmount = 0
+
+        for (let debt of debts) {
+          totalDebts++
+          totalDebtsAmount += debt.payment
+          totalEstimatedDebtAmount += debt.estimated_payment
+        }
+
       return({
           bookings:totalBookings,
           bookingAmount:totalBookingsAmount,
           estimatedBookingAmount:totalEstimatedBoookingAmount,
           expenses:totalExpenses,
-          expensesAmount:totalAmountOnExpenses
+          expensesAmount:totalAmountOnExpenses,
+
+          // debts
+          debts:totalDebts,
+          debtsAmount:totalDebtsAmount,
+          estimatedDebtsAmount:totalEstimatedDebtAmount
+
 
       })
     } catch (err: any) {

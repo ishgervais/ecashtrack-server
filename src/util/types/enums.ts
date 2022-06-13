@@ -22,3 +22,8 @@ export enum ECurrency{
     USD= 'USD',
     EURO= 'EURO',
 }
+
+export enum EDebtStatus{
+    SOMEONE_OWES_ME = 'SOMEONE OWES ME',
+    I_OWE_SOMEONE = 'I OWE SOMEON'
+}

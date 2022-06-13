@@ -1,4 +1,4 @@
-import { ECurrency, EPaymentStatus, EStatus } from "./enums";
+import { ECurrency, EDebtStatus, EPaymentStatus, EStatus } from "./enums";
 
 export type TResponse = {
     success:boolean,
@@ -45,6 +45,23 @@ export type TExpense = {
     budget:TBudget
     created_by:TUser
     status:EStatus
+
+}
+
+
+export type TDebt = {
+    name:string
+    payment:Number
+    estimated_payment:Number
+    currency:ECurrency
+    holder_status:EDebtStatus
+    month:String
+    year:number
+    created_by:TUser
+    status:EStatus
+
+    // req body types
+    issued_date:Date
 
 }
 

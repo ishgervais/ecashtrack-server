@@ -1,18 +1,14 @@
 import mongoose from 'mongoose';
-import { EPaymentStatus, EStatus } from '../util/types/enums';
+import { ECurrency, EDebtStatus, EPaymentStatus, EStatus } from '../util/types/enums';
 const pagination = require('mongoose-paginate-v2')
 let date = (new Date()).toString();
 let month = date.split(' ')[1]
 const DebtSchema = new mongoose.Schema({
-    client_names:{
+    name:{
         type:String,
         required:true
     },
-  
-    booking_date:{
-        type: mongoose.Types.ObjectId,
-        ref:"BookingDate",
-    },
+
     // client current payment
     payment:{
         type:Number,
@@ -24,34 +20,47 @@ const DebtSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-       // for statistics
+
+    currency:{
+        type:String,
+        enum:[ECurrency.RWF, ECurrency.USD, ECurrency.EURO],
+        default: ECurrency.RWF
+    },
+    notes:{
+        type:String
+    },
+    // for statistics
     month:{
         type:String,
         default: month
     },
     year:{
         type:Number,
+        default: new Date().getFullYear()
     },
+
     payment_status:{
         type:String,
         default:EPaymentStatus.PENDING,
         enum : [EPaymentStatus.PENDING, EPaymentStatus.CONFIRMED]
 
     },
-    notes:{
-        type:String
+
+    holder_status:{
+        type:String,
+        default: EDebtStatus.SOMEONE_OWES_ME,
+        enum:[EDebtStatus.SOMEONE_OWES_ME, EDebtStatus.I_OWE_SOMEONE]
     },
+
     status:{
         type:String,
         default: EStatus.ACTIVE,
         enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     },
-    
     created_by:{
         type:mongoose.Types.ObjectId,
         ref:"User"
-    }
- 
+    },
 
 },{
     timestamps:true,
@@ -66,5 +75,5 @@ const DebtSchema = new mongoose.Schema({
 
 DebtSchema.plugin(pagination)
 
-const Booking: any = mongoose.model("Booking", DebtSchema)
-export {Booking}
+const Debt: any = mongoose.model("Debt", DebtSchema)
+export {Debt}
