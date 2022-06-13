@@ -224,4 +224,16 @@ export class DebtService {
       throw new ApiError(false, 404, e.message)
     }
   }
+
+  async getDebtsByYearAndCategory(user_id:string,cat_id: string, year:number){
+    try {
+      let debts = await Debt.find({created_by:user_id, year, holder_status:cat_id, status:EStatus.ACTIVE })
+      if (!debts) {
+        throw new ApiError(false, 404, "Debts not found")
+      }
+      return debts
+    } catch (e: any) {
+      throw new ApiError(false, 404, e.message)
+    }
+  }
 }

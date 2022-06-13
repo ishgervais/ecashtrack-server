@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { formatResponse } from "../util/formatRepsone";
-import { TBooking } from "../util/types";
+import { TBooking, TDebt } from "../util/types";
 import { DebtService } from "../services/debt.service";
 import { EPaymentStatus, EStatus } from "../util/types/enums";
 
@@ -157,4 +157,18 @@ async getAllByStatus(req: Request, res: Response) {
         .send(formatResponse(e.success, e.message, {}));
     }
   }
+
+  async getByYearAndCategory(req: Request, res: Response) {
+    try {
+      let year: number = parseInt(req.params.year)
+      let cat_id: string = req.query.category as string
+      let debts: TDebt = await debtService.getDebtsByYearAndCategory(req.body.user_id,cat_id,year)
+      return res.status(200).send(formatResponse(true, "Data found", debts))
+    } catch (e: any) {
+      return res
+        .status(e.statusCode)
+        .send(formatResponse(e.success, e.message, {}))
+    }
+  }
+
 }

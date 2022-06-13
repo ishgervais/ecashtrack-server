@@ -42,4 +42,11 @@ router.put("/update/:id/status", debtController.updateStatus);
  */
  router.get("/year/:year", debtController.getByYear);
 
+  /**
+ * @param year Number
+ * @query category String
+ */
+   router.get("/year-category/:year", debtController.getByYearAndCategory);
+
+
 export default router;
