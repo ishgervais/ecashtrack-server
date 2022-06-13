@@ -32,7 +32,7 @@ export class TotalCountsService {
       // debts counter
 
         // for bookings count
-        let debts = await Debt.find({ year: year, status:EStatus.ACTIVE  })
+        let debts = await Debt.find({ created_by:user_id, year: year, status:EStatus.ACTIVE })
         let totalDebts = 0
         let totalDebtsAmount = 0
         let totalEstimatedDebtAmount = 0

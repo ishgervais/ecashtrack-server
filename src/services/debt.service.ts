@@ -10,9 +10,14 @@ const historyLogsService = new HistoryLogsService()
 
 export class DebtService {
   async getDebts(page: string, limit: string,user_id: string) {
+
+    const filter = {
+      created_by:user_id,
+        status:EStatus.ACTIVE
+    }
+    
     let debts = await Debt.paginate(
-      {created_by:user_id, 
-        status:EStatus.ACTIVE},
+      filter,
       getPaginationProps(parseInt(page), parseInt(limit), "")
     )
     return debts
@@ -210,20 +215,19 @@ export class DebtService {
 
   // statistics
 
-  async getDebtByYear(page:string, limit:string, year: number) {
-    try {
-      let debts = await Debt.paginate(
-        {year, status:EStatus.ACTIVE},
-        getPaginationProps(parseInt(page), parseInt(limit), "")
-      )
-      if (!debts) {
-        throw new ApiError(false, 404, "Debts not found")
-      }
-      return debts
-    } catch (e: any) {
-      throw new ApiError(false, 404, e.message)
+  // statistics
+
+async getDebtByYear(user_id:string, year: number) {
+  try {
+    let expenses = await Debt.find({ created_by:user_id,year, status:EStatus.ACTIVE})
+    if (!expenses) {
+      throw new ApiError(false, 404, "Expenses not found")
     }
+    return expenses
+  } catch (e: any) {
+    throw new ApiError(false, 404, e.message)
   }
+}
 
   async getDebtsByYearAndCategory(user_id:string,cat_id: string, year:number){
     try {
