@@ -144,9 +144,7 @@ async getAllByStatus(req: Request, res: Response) {
   async getByYear(req: Request, res: Response) {
     try {
       let year:number = parseInt(req.params.year)
-      let page: any = req.query.page || "1";
-      let limit: any = req.query.limit || "5000";
-      let debts = await debtService.getDebtByYear(page, limit, year);
+      let debts = await debtService.getDebtByYear(req.body.user_id, year);
       
       return res
         .status(200)
