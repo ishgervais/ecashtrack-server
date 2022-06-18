@@ -25,5 +25,5 @@ export enum ECurrency{
 
 export enum EDebtStatus{
     SOMEONE_OWES_ME = 'SOMEONE OWES ME',
-    I_OWE_SOMEONE = 'I OWE SOMEON'
+    I_OWE_SOMEONE = 'I OWE SOMEONE'
 }
