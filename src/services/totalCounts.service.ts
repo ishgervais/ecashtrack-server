@@ -2,7 +2,7 @@ import { Booking } from "../models/Booking.model"
 import { Debt } from "../models/Debt.model"
 import { Expense } from "../models/expense.model"
 import { ApiError } from "../util/ApiError"
-import { EStatus } from "../util/types/enums"
+import { EPaymentStatus, EStatus } from "../util/types/enums"
 export class TotalCountsService {
   async getTotalCountsForTheCurrentYear(user_id:string) {
     try {
@@ -32,7 +32,7 @@ export class TotalCountsService {
       // debts counter
 
         // for bookings count
-        let debts = await Debt.find({ created_by:user_id, year: year, status:EStatus.ACTIVE })
+        let debts = await Debt.find({ created_by:user_id, year: year, status:EStatus.ACTIVE, payment_status:EPaymentStatus.PENDING })
         let totalDebts = 0
         let totalDebtsAmount = 0
         let totalEstimatedDebtAmount = 0
