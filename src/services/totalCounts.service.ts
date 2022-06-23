@@ -32,7 +32,7 @@ export class TotalCountsService {
       // debts counter
 
         // for bookings count
-        let debts = await Debt.find({ created_by:user_id, year: year, status:EStatus.ACTIVE, payment_status:EPaymentStatus.PENDING })
+        let debts = await Debt.find({ created_by:user_id, year: year, status:EStatus.ACTIVE })
         let totalDebts = 0
         let totalDebtsAmount = 0
         let totalEstimatedDebtAmount = 0
@@ -40,7 +40,7 @@ export class TotalCountsService {
         for (let debt of debts) {
           totalDebts++
           totalDebtsAmount += debt.payment
-          totalEstimatedDebtAmount += debt.estimated_payment
+          debt.payment_status === EPaymentStatus.PENDING && (totalEstimatedDebtAmount += debt.estimated_payment)
         }
 
       return({
