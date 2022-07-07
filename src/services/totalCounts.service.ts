@@ -40,7 +40,10 @@ export class TotalCountsService {
         for (let debt of debts) {
           totalDebts++
           totalDebtsAmount += debt.payment
-          debt.payment_status === EPaymentStatus.PENDING && (totalEstimatedDebtAmount += debt.estimated_payment)
+          // to be fixed later
+          // debt.payment_status === EPaymentStatus.PENDING && (totalEstimatedDebtAmount += debt.estimated_payment)
+       totalEstimatedDebtAmount += debt.estimated_payment
+
         }
 
       return({
