@@ -20,6 +20,13 @@ export type TUser = {
     status:EStatus
 }
 
+export type TUserPassword = {
+    user?:TUser
+    user_id:any
+    oldPassword:string
+    newPassword:string
+}
+
 export type TBudget  = {
     id:string
     name:string
