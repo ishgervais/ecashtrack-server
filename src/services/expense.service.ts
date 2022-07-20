@@ -49,7 +49,7 @@ export class ExpenseService {
 
 
   async getOne(id: string) {
-    let expense = await Expense.findById(id);
+    let expense = await Expense.findById(id).populate("category");
     if (!expense) {
       throw new ApiError(false, 404, "Expense not found");
     }
