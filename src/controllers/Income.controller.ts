@@ -150,7 +150,7 @@ export class IncomeController {
   async getByYearAndSource(req: Request, res: Response) {
     try {
       let year: number = parseInt(req.params.year)
-      let cat_id: string = req.query.category as string
+      let cat_id: string = req.query.source as string
       let bookings: TIncome = await incomeService.geTIncomeByYearAndSource(
         req.body.user_id,
         cat_id,
