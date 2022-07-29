@@ -109,6 +109,7 @@ export interface TIncome {
     source:TIncomeSource | any
     created_by:TUser | any
     currency:ECurrency
+    issued_date:Date
     status:EStatus
 }
 

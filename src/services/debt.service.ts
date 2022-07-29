@@ -219,11 +219,11 @@ export class DebtService {
 
 async getDebtByYear(user_id:string, year: number) {
   try {
-    let expenses = await Debt.find({ created_by:user_id,year, status:EStatus.ACTIVE})
-    if (!expenses) {
-      throw new ApiError(false, 404, "Expenses not found")
+    let debts = await Debt.find({ created_by:user_id,year, status:EStatus.ACTIVE})
+    if (!debts) {
+      throw new ApiError(false, 404, "Debts not found")
     }
-    return expenses
+    return debts
   } catch (e: any) {
     throw new ApiError(false, 404, e.message)
   }

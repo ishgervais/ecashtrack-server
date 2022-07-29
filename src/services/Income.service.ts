@@ -1,5 +1,6 @@
 import { Income } from "../models/Income.model";
 import { ApiError } from "../util/ApiError";
+import { getDateSeparated } from "../util/customFunctions";
 import { getPaginationProps } from "../util/getPagination";
 import { TIncome } from "../util/types";
 import { EStatus } from "../util/types/enums";
@@ -48,6 +49,15 @@ export class IncomeService {
   }
 
   async createOne(body: TIncome) {
+
+    const {issued_date} = body
+
+    // get these datetime from issued_date
+    const {month,year} = getDateSeparated(issued_date)
+    body.month = month
+    body.year = year
+
+
     let income = await Income.create(body);
     if (!income) {
       throw new ApiError(false, 400, "Registration failed");

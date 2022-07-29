@@ -39,6 +39,10 @@ const IncomeSchema = new mongoose.Schema<TIncome>({
         default: EStatus.ACTIVE,
         enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     },
+    issued_date:{
+        type:Date,
+        default: new Date()
+    },
     created_by:{
         type:mongoose.Types.ObjectId,
         ref:"User"
