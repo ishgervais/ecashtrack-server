@@ -96,3 +96,25 @@ export type THistoryLog = {
     created_by:TUser
     status?:EStatus
 }
+
+
+// income types
+
+export interface TIncome {
+    name:string
+    amount:number
+    month:string
+    year:number
+    notes:string
+    source:TIncomeSource | any
+    created_by:TUser | any
+    currency:ECurrency
+    status:EStatus
+}
+
+export interface TIncomeSource{
+    name:string
+    notes:string
+    status:EStatus
+    created_by:TUser | any
+}
