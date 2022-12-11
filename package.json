@@ -6,9 +6,6 @@
   "author": "Gervais Ishimwe",
   "license": "MIT",
   "main": "bin/app.js",
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
     "local": "heroku local web",
     "build": "tsc --project ./",
