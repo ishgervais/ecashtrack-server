@@ -9,7 +9,7 @@ export class ExpenseController {
   async getAll(req: Request, res: Response) {
     try {
       let page: any = req.query.page || "1"
-      let limit: any = req.query.limit || "100"
+      let limit: any = req.query.limit || "1000"
       let users = await expenseService.getAll(page, limit, req.body.user_id)
       return res.status(200).send(formatResponse(true, "", users))
     } catch (e: any) {
